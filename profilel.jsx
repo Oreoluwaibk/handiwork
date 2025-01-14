@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView, StyleSheet, Pressable, Image } from 'react-native'
+import { View, Text, SafeAreaView, StyleSheet, Pressable, Image, ScrollView } from 'react-native'
 import React, { useState } from 'react'
 import { Colors } from '@/constants/Colors';
 import Homeheaders from '@/components/Homeheaders';
@@ -12,7 +12,8 @@ const Tab = () => {
   return (
     <>
       <SafeAreaView style={{flex:1}}>
-       <View style={styles.container}>
+        <ScrollView style={{flex:1}} showsVerticalScrollIndicator={false}>
+        <View style={styles.container}>
         <View style={styles.header}>
           <Homeheaders 
             title="Profile Details"
@@ -33,11 +34,38 @@ const Tab = () => {
               source={require("@/assets/images/img1.png")}
               style={{width: 100, height: 100, borderRadius: 100}}
             />
+            <View>
+              
+            </View>
           </View>
 
-          <View style={{paddingVertical: 20,display: "flex", marginTop: 20}}>
+          <View style={{paddingVertical: 20,display: "flex", gap:10, marginTop: 20}}>
             <Profileinput 
               label="Full Name"
+            />
+
+<Profileinput 
+              label="Email"
+            />
+
+<Profileinput 
+              label="Phone Number"
+            />
+
+<Profileinput 
+              label="Detailed Address"
+            />
+
+<Profileinput 
+              label="NIN Number"
+            />
+
+<Profileinput 
+              label="Address in Abuja"
+            />
+
+<Profileinput 
+              label="Bio"
             />
           </View>
 
@@ -49,6 +77,7 @@ const Tab = () => {
           </View>
         </View>
        </View>
+        </ScrollView>
       </SafeAreaView>
 
       {openModal && (
