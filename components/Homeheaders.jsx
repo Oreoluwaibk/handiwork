@@ -2,6 +2,7 @@ import { View, Text, Pressable, StyleSheet, Dimensions } from 'react-native'
 import React from 'react'
 import BackButton from './BackButton'
 import { Ionicons } from '@expo/vector-icons'
+import { useRouter } from 'expo-router';
 
 const { width } = Dimensions.get("screen");
 const Homeheaders = ({ 
@@ -9,6 +10,7 @@ const Homeheaders = ({
     showBackBtn, 
     showNotifciationIcon
 }) => {
+    const router = useRouter();
   return (
     <View style={styles.container}>
         <View style={styles.top}>
@@ -20,7 +22,7 @@ const Homeheaders = ({
        
 
       {showNotifciationIcon && (
-        <Pressable>
+        <Pressable  onPress={() => router.push("/Notification")}>
             <Ionicons name="notifications-outline" size={20} color="black" />
         </Pressable>
       )}
