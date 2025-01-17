@@ -5,7 +5,7 @@ import Homeheaders from '@/components/Homeheaders';
 
 const Tab = () => {
   return (
-    <SafeAreaView style={{flex:1}}>
+    <SafeAreaView style={{flex:1, backgroundColor: "#fff"}}>
       <View style={styles.container}>
         <View style={styles.header}>
           <Homeheaders 

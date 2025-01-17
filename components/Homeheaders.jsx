@@ -8,7 +8,8 @@ const { width } = Dimensions.get("screen");
 const Homeheaders = ({ 
     title, 
     showBackBtn, 
-    showNotifciationIcon
+    showNotifciationIcon,
+    showIcon
 }) => {
     const router = useRouter();
   return (
@@ -26,6 +27,8 @@ const Homeheaders = ({
             <Ionicons name="notifications-outline" size={20} color="black" />
         </Pressable>
       )}
+
+        {showIcon && showIcon}
     </View>
   )
 }

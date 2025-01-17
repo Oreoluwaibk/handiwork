@@ -36,7 +36,7 @@ export const AuthProvider = ({children}) => {
     });
     const [lastActivityTime, setLastActivityTime] = useState(Date.now());
     const [token, setToken] = useState(null);
-    const [isLoggedIn, setIsLoggedIn] = useState(true);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [ openWarnModal, setOpenWarnModal ] = useState(false);
     const [ warning, setWarning ] = useState(null);
     const [ deviceToken, setDeviceToken ] = useState(null);
@@ -66,10 +66,10 @@ export const AuthProvider = ({children}) => {
 
     const logUserIn = (data)=>{
         // console.log("logining data", data);//"Content-Type": "application/x-www-form-urlencoded", Accept: "application/json"
-        setToken(data.token);
-        axios.defaults.headers.common['Authorization'] = `Token ${data.token}`;
-        axios.defaults.headers.common["Access-Control-Allow-Origin"] = "*"
-        axios.defaults.headers.common["Access-Control-Allow-Headers"] = "*"
+        // setToken(data.token);
+        // axios.defaults.headers.common['Authorization'] = `Token ${data.token}`;
+        // axios.defaults.headers.common["Access-Control-Allow-Origin"] = "*"
+        // axios.defaults.headers.common["Access-Control-Allow-Headers"] = "*"
 // : *
         // axios.defaults.headers.common["Accept"] = "application/json"
         setUser(data)
@@ -77,15 +77,15 @@ export const AuthProvider = ({children}) => {
 
         // setLastActivityTime(Date.now());
 
-        storage.save({
-            key: 'handiworkUserDetails', // Note: Do not use underscore("_") in key!
-            data: data,
+        // storage.save({
+        //     key: 'handiworkUserDetails', // Note: Do not use underscore("_") in key!
+        //     data: data,
           
-            // if expires not specified, the defaultExpires will be applied instead.
-            // if set to null, then it will never expire.
-            expires: 1000 * 3600,
-            // expires: null
-        });
+        //     // if expires not specified, the defaultExpires will be applied instead.
+        //     // if set to null, then it will never expire.
+        //     expires: 1000 * 3600,
+        //     // expires: null
+        // });
 
 
         // localStorage.setItem("commutor_user_datails", JSON.stringify(data));

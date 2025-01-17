@@ -8,14 +8,13 @@ import { AuthContext } from '@/uils/context/authContext';
 
 const login = () => {
     const router = useRouter();
-    const {} = useContext(AuthContext); 
+    const { logUserIn } = useContext(AuthContext); 
     const [ email, setEmail ] = useState("");
     const [ password, setPassword ] = useState("");
     
   return (
     <SafeAreaView style={{flex: 1}}>
         <View style={styles.container}>
-       
             <View style={styles.contain}>
                 <View style={{display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center"}}>
                     <Image source={require("@/assets/images/altlogo.png")} />
@@ -48,7 +47,10 @@ const login = () => {
                         <View style={{marginTop: 30}}>
                             <Button 
                               title="Login"
-                              onPress={() => router.push("/(tabs)")}
+                              onPress={() => {
+                                logUserIn({email: email, password})
+                                router.push("/(tabs)")
+                              }}
                             />
                         </View>
                     </View>

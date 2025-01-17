@@ -6,7 +6,7 @@ import { Colors } from '@/constants/Colors';
 import { Provider } from 'react-redux';
 import { store } from '@/lib/store';
 import { AuthContext } from '@/uils/context/authContext';
-import { Feather, FontAwesome6, SimpleLineIcons } from '@expo/vector-icons';
+import { Feather, FontAwesome6, MaterialIcons, Octicons, SimpleLineIcons } from '@expo/vector-icons';
 
 export default function TabLayout() {
   const { isLoggedIn } = useContext(AuthContext);
@@ -47,7 +47,7 @@ export default function TabLayout() {
         name="history"
         options={{
           title: 'History',
-          tabBarIcon: ({ color }) => <IconSymbol size={20} name="paperplane.fill" color={color} />,
+          tabBarIcon: ({ color }) => <Octicons size={22} name="person" color={color} />,
         }}
       />
       <Tabs.Screen

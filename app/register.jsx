@@ -13,62 +13,62 @@ const register = () => {
 
   return (
     <SafeAreaView style={{flex: 1}}>
-         <View style={styles.container}>
-            <View style={styles.contain}>
-                <View style={{display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center"}}>
-                    <Image source={require("@/assets/images/altlogo.png")} />
-                </View>
-                <View style={{display: "flex", gap: 30, marginTop: 80}}>
-                    <View>
-                        <Text style={styles.title}>Sign Up</Text>
-                        <Text style={styles.description}>To Find Help</Text>
-                    </View>
+        <View style={styles.container}>
+          <View style={styles.contain}>
+              <View style={{display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center"}}>
+                  <Image source={require("@/assets/images/altlogo.png")} />
+              </View>
+              <View style={{display: "flex", gap: 30, marginTop: 80}}>
+                  <View>
+                      <Text style={styles.title}>Sign Up</Text>
+                      <Text style={styles.description}>To Find Help</Text>
+                  </View>
 
-                    <View style={{display: "flex", gap: 10}}>
-                        <Authinput 
-                            label="Firstname"
-                            onChange={setFirstname}
-                            value={firstname}
-                        />
-                        <Authinput 
-                            label="Lastname"
-                            onChange={setLastname}
-                            value={lastname}
-                        />
-                        <Authinput 
-                            label="Email"
-                            onChange={setEmail}
-                            value={email}
-                        />
-                            <Authinput 
-                            label="Password"
-                            password
-                            onChange={setPassword}
-                            value={password}
-                        />
-                        <View style={{alignItems: "center", flexDirection: "row", justifyContent: "flex-end"}}>
-                            <Text style={{ color: Colors.light.primary }}>Forgot Password</Text>
-                        </View>
+                  <View style={{display: "flex", gap: 10}}>
+                      <Authinput 
+                          label="Firstname"
+                          onChange={setFirstname}
+                          value={firstname}
+                      />
+                      <Authinput 
+                          label="Lastname"
+                          onChange={setLastname}
+                          value={lastname}
+                      />
+                      <Authinput 
+                          label="Email"
+                          onChange={setEmail}
+                          value={email}
+                      />
+                          <Authinput 
+                          label="Password"
+                          password
+                          onChange={setPassword}
+                          value={password}
+                      />
+                      <View style={{alignItems: "center", flexDirection: "row", justifyContent: "flex-end"}}>
+                          <Text style={{ color: Colors.light.primary }}>Forgot Password</Text>
+                      </View>
 
-                        <View style={{marginTop: 10}}>
-                            <Button 
-                                title="Sign Up"
-                            />
-                        </View>
-                    </View>
-                    
-                </View>
+                      <View style={{marginTop: 10}}>
+                          <Button 
+                              title="Sign Up"
+                          />
+                      </View>
+                  </View>
+                  
+              </View>
 
 
-            </View>
-            <View style={styles.haveView}>
-                <Text style={styles.haveAccount}>Already have an Account? 
-                    <Link href="/login" asChild style={{marginLeft: 7}}>
-                        <Text style={{color: Colors.light.primary}}>Log in</Text>
-                    </Link>
-                </Text>
-            </View>
-        </View>
+          </View>
+          <View style={styles.haveView}>
+              <Text style={styles.haveAccount}>Already have an Account? 
+                  <Link href="/login" asChild style={{marginLeft: 7}}>
+                      <Text style={{color: Colors.light.primary}}>Log in</Text>
+                  </Link>
+              </Text>
+          </View>
+      </View>
     </SafeAreaView>
   )
 }

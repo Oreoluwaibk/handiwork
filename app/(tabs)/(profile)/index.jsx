@@ -9,14 +9,16 @@ import { EvilIcons, Ionicons } from '@expo/vector-icons';
 import ActionIcons from '@/components/ActionIcons';
 import NotificationModal from '@/components/modal/NotificationModal';
 import { useRouter } from 'expo-router';
+import DrawUpModal from '@/components/modal/DrawUpModal';
 
 const ProfileScreen = () => {
   const router = useRouter();
     const [ openModal, setOpenModal ] = useState(false);
     const [ isVendor, setIsVendor ] = useState(false);
-    const [ isEditProfile, setIsEditProfile ] = useState(false);
+    const [ isEditProfile, setIsEditProfile ] = useState(true);
     const [ openNotify, setOpenNotify ] = useState(false);
-    const [ modalTitle, setModalTitle ] = useState("Profile save successfully")
+    const [ modalTitle, setModalTitle ] = useState("Profile save successfully");
+    const [ showDrawUp, setShowDrawUp ] = useState(false);
    return (
      <>
        <SafeAreaView style={{flex:1,backgroundColor:"#fff"}}>
@@ -49,13 +51,13 @@ const ProfileScreen = () => {
            </View>
            <View style={{alignItems: "center"}}>
                <Text style={{color:"#000", fontSize:14, fontWeight: "500"}}>Akhigbe Imoukhuede</Text>
-               <Text style={{color: Colors.light.primary, fontSize:14}}>Imoukhuedeakhigbe@gmail.com</Text>
+               {!isEditProfile && <Text style={{color: Colors.light.primary, fontSize:14}}>Imoukhuedeakhigbe@gmail.com</Text>}
              </View>
 
              {isVendor && <View style={{marginTop: 30, display: "flex", alignItems: "center",}}>
              <Button 
                title="Hire Vendor"
-               onPress={() => setOpenModal(true)}
+               onPress={() => setShowDrawUp(true)}
              />
            </View>}
 
@@ -64,7 +66,7 @@ const ProfileScreen = () => {
               <ActionIcons 
                 icon={<Ionicons name="chatbubble-outline" color={Colors.light.primary} size={20} />}
                 title="Chat"
-
+                onPress={() => router.push("/Chat")}
               />
               <ActionIcons 
                 icon={<Ionicons name="call-outline" color={Colors.light.primary} size={20} />}
@@ -75,7 +77,7 @@ const ProfileScreen = () => {
               <ActionIcons 
                 icon={<Image source={require("@/assets/icons/chatr.png")} style={{width: 18, height:18}} alt='Chat' />}
                 title="Review"
-
+                onPress={() => router.push("/Review")}
               />
             </View>
            )}
@@ -144,27 +146,27 @@ const ProfileScreen = () => {
                label="Full Name"
              />
  
- <Profileinput 
+            <Profileinput 
                label="Email"
              />
  
- <Profileinput 
+              <Profileinput 
                label="Phone Number"
              />
  
- <Profileinput 
+              <Profileinput 
                label="Detailed Address"
              />
  
- <Profileinput 
+              <Profileinput 
                label="NIN Number"
              />
  
- <Profileinput 
+              <Profileinput 
                label="Address in Abuja"
              />
  
- <Profileinput 
+              <Profileinput 
                label="Bio"
              />
 
@@ -190,7 +192,10 @@ const ProfileScreen = () => {
        {openModal && (
          <SuccesssModal 
            open={openModal}
-           onCancel={() => setOpenModal(false)}
+           onCancel={() => {
+            setIsEditProfile(false);
+            setOpenModal(false);
+          }}
            title={modalTitle}
          />
        )}
@@ -206,6 +211,13 @@ const ProfileScreen = () => {
             setModalTitle("Account Deleted successfully");
             setOpenModal(true);
           }}
+        />
+       )}
+
+       {showDrawUp && (
+        <DrawUpModal 
+          open={showDrawUp}
+          onCancel={() => setShowDrawUp(false)}
         />
        )}
      </>
