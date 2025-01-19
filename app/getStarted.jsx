@@ -1,9 +1,10 @@
-import { View, Text, StyleSheet, Image, Dimensions, Pressable, SafeAreaView } from 'react-native'
+import { View, StyleSheet, Image, Dimensions, Pressable, SafeAreaView } from 'react-native'
 import React, { useRef } from 'react'
 import { Colors } from '@/constants/Colors'
 import Button from '@/components/Button';
 import Carousel from 'react-native-reanimated-carousel';
 import { useRouter } from 'expo-router';
+import { Text } from '@/components/CustomText';
 
 
 const { width, height } = Dimensions.get("screen");

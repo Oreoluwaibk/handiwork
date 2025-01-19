@@ -4,10 +4,11 @@ import React from 'react'
 const PictureComp = ({ 
     picture, 
     title,
-    width = "100%" 
+    width = "100%",
+    onPress 
 }) => {
   return (
-    <TouchableOpacity>
+    <TouchableOpacity onPress={onPress}>
          <View style={{...styles.container, width}}>
             <Image source={picture} alt={title} style={{height: 150, width: "!00%"}} />
             <View style={{display:"flex", flexDirection:"row", alignItems: "center", justifyContent: "center", width: "100%"}}>

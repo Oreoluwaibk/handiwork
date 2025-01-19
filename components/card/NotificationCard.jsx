@@ -12,7 +12,7 @@ export default function NotificationCard({notification}) {
 
         <View style={{gap: 10}}>
             <Text style={{fontWeight: "500", fontSize: 18}}>{notification.name}</Text>
-            <Text style={{color: "#ADADAD"}}>{notification.notification}</Text>
+            <Text style={{color: "#ADADAD", wordWrap: "wrap-all"}}>{notification.notification}</Text>
         </View>
         
       </View>
@@ -34,6 +34,7 @@ const styles = StyleSheet.create({
         height: 150,
         borderRadius: 14,
         paddingHorizontal: 10,
+        paddingRight: 15,
         paddingVertical: 15,
         marginBottom: 7
     },

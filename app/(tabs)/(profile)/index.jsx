@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView, StyleSheet, Pressable, Image, ScrollView } from 'react-native'
+import { View, Text, SafeAreaView, StyleSheet, Pressable, Image, ScrollView, TouchableOpacity } from 'react-native'
 import React, { useState } from 'react'
 import { Colors } from '@/constants/Colors';
 import Homeheaders from '@/components/Homeheaders';
@@ -10,6 +10,46 @@ import ActionIcons from '@/components/ActionIcons';
 import NotificationModal from '@/components/modal/NotificationModal';
 import { useRouter } from 'expo-router';
 import DrawUpModal from '@/components/modal/DrawUpModal';
+import * as ImagePicker from 'expo-image-picker';
+import ImageViewing from 'react-native-image-viewing';
+
+
+const skills = [
+  {id:1, title: "Event Planners"},
+  {id:2, title: "Tailors"},
+  {id:3, title: "Shoe Makers"},
+  {id:4, title: "Fabric Sellers"},
+  {id:5, title: "Photographer"},
+  {id:6, title: "Errand Personal"},
+  {id:7, title: "Event Planners"},
+  {id:8, title: "Event Planners"},
+  {id:9, title: "Event Planners"},
+  {id:10, title: "Event Planners"},
+]
+
+const abujaTownsAndCities = [
+  { id: 1, name: "Abaji" },
+  { id: 2, name: "Asokoro" },
+  { id: 3, name: "Bwari" },
+  { id: 4, name: "Central Business District" },
+  { id: 5, name: "Dawaki" },
+  { id: 6, name: "Durumi" },
+  { id: 7, name: "Dutse" },
+  { id: 8, name: "Garki" },
+  { id: 9, name: "Gwarinpa" },
+  { id: 10, name: "Jabi" },
+  { id: 11, name: "Karu" },
+  { id: 12, name: "Kubwa" },
+  { id: 13, name: "Kuje" },
+  { id: 14, name: "Lugbe" },
+  { id: 15, name: "Maitama" },
+  { id: 16, name: "Mpape" },
+  { id: 17, name: "Nyanya" },
+  { id: 18, name: "Utako" },
+  { id: 19, name: "Wuse" },
+  { id: 20, name: "Wuye" },
+];
+
 
 const ProfileScreen = () => {
   const router = useRouter();
@@ -19,6 +59,59 @@ const ProfileScreen = () => {
     const [ openNotify, setOpenNotify ] = useState(false);
     const [ modalTitle, setModalTitle ] = useState("Profile save successfully");
     const [ showDrawUp, setShowDrawUp ] = useState(false);
+    const [ loading, setLLoading ] = useState(false);
+    const [ selectedSkills, setSelectedSkills ] = useState([]);
+    const [ selectedAddress, setSelectedAddress ] = useState([]);
+    const [ imageFile, setImageFile ] = useState(null);
+    const [ image, setImage ] = useState(null);
+    const [visible, setVisible] = useState(false);
+
+    const handleSelectSkillsItem = (value) => {
+      if(selectedSkills.includes(value)) return setSelectedSkills(prev => prev.filter(item => item !== value));
+      setSelectedSkills(prev => [...prev, value]);
+    }
+
+    const handleSelectAddress = (value) => {
+      setSelectedAddress([value]);
+    }
+
+    const handleDisplaySkills = (value, compare) => {
+      const presentValue = compare.filter(values => value.some(item => item === values.id));
+      let shownSkills = "";
+      presentValue.map(value => shownSkills += `${value.title}, `);
+      return shownSkills;
+    }
+
+    const handleDisplayAddress = (value, compare) => {
+      const presentValue = compare.filter(values => value.some(item => item === values.id));
+      let shownSkills = "";
+      presentValue.map(value => shownSkills += `${value.name}`);
+      return shownSkills;
+    }
+
+    const handleImagePick = async () => {
+      try {
+        let result = await ImagePicker.launchImageLibraryAsync({
+          // mediaTypes: ImagePicker.mediaType.Images,
+          mediaTypes: ["images"],
+          base64: true
+        });
+        if(!result) return;
+        const info = result.assets[0];
+        const mimeType = info.mimeType.split("/")[1];
+        const splitName = info.fileName.split(".");
+        const file = {
+          file: info.base64,
+          filename: splitName.length > 1 ? info.fileName : `${info.fileName}.${mimeType}`
+        }
+        setImageFile(file);
+        
+        setImage(info.uri);
+      } catch (error) {
+        console.log("error", error);
+      }
+     
+    }
    return (
      <>
        <SafeAreaView style={{flex:1,backgroundColor:"#fff"}}>
@@ -40,12 +133,17 @@ const ProfileScreen = () => {
  
          <View style={styles.contain}>
            <View style={{display: "flex", alignItems: "center", marginTop: 20, position:"relative"}}>
-             <Image 
-               source={require("@/assets/images/img1.png")}
-               style={{width: 100, height: 100, borderRadius: 100}}
-             />
+            <Pressable onPress={() => image && setVisible(true)}>
+              <Image 
+                source={image ? {uri: image }: require("@/assets/images/img1.png")}
+                style={{width: 100, height: 100, borderRadius: 100}}
+              />
+            </Pressable>
+             
              <View style={styles.icondiv}>
-               <EvilIcons name='camera' color={Colors.light.primary} size={24} />
+              <TouchableOpacity onPress={handleImagePick}>
+                <EvilIcons name='camera' color={Colors.light.primary} size={24} />
+              </TouchableOpacity>
              </View>
              
            </View>
@@ -54,14 +152,14 @@ const ProfileScreen = () => {
                {!isEditProfile && <Text style={{color: Colors.light.primary, fontSize:14}}>Imoukhuedeakhigbe@gmail.com</Text>}
              </View>
 
-             {isVendor && <View style={{marginTop: 30, display: "flex", alignItems: "center",}}>
+             {isVendor &&!isEditProfile && <View style={{marginTop: 30, display: "flex", alignItems: "center",}}>
              <Button 
                title="Hire Vendor"
                onPress={() => setShowDrawUp(true)}
              />
            </View>}
 
-           {isVendor && (
+           {isVendor && !isEditProfile && (
             <View style={{display: "flex", flexDirection: "row", gap: 10, justifyContent:"center", marginTop: 10}}>
               <ActionIcons 
                 icon={<Ionicons name="chatbubble-outline" color={Colors.light.primary} size={20} />}
@@ -83,23 +181,23 @@ const ProfileScreen = () => {
            )}
 
           
-           {isVendor && (
+           {isVendor && !isEditProfile && (
             <View style={{...styles.inputView, marginTop: 5}}>
  
-              <Profileinput 
-               label="Bio"
-               multiline
-               row={3}
-               height={100}
-             />
+            <Profileinput 
+              label="Bio"
+              multiline
+              row={3}
+              height={100}
+            />
 
-          {isVendor && (
-            <View style={{display: "flex", flexDirection: "row", gap: 10, paddingHorizontal: 20,}}>
-              <Image source={require("@/assets/icons/imgh.png")} width={"auto"} />
-              <Image source={require("@/assets/icons/imgh.png")}  width={"auto"}/>
-              <Image source={require("@/assets/icons/imgh.png")}  width={"auto"}/>
-            </View>
-           )}
+            {isVendor && (
+              <View style={{display: "flex", flexDirection: "row", gap: 10, paddingHorizontal: 20,}}>
+                <Image source={require("@/assets/icons/imgh.png")} width={"auto"} />
+                <Image source={require("@/assets/icons/imgh.png")}  width={"auto"}/>
+                <Image source={require("@/assets/icons/imgh.png")}  width={"auto"}/>
+              </View>
+            )}
 
  
             <Profileinput 
@@ -152,6 +250,7 @@ const ProfileScreen = () => {
  
               <Profileinput 
                label="Phone Number"
+               number
              />
  
               <Profileinput 
@@ -160,22 +259,39 @@ const ProfileScreen = () => {
  
               <Profileinput 
                label="NIN Number"
-             />
- 
-              <Profileinput 
-               label="Address in Abuja"
-             />
- 
-              <Profileinput 
-               label="Bio"
+               number
              />
 
-<Profileinput 
+              {isVendor && <Profileinput 
+               label={selectedSkills.length > 0 ? handleDisplaySkills(selectedSkills, skills) :"Skills"}
+               isSelectModal
+               listToSelect={skills}
+               loading={loading}
+               multiple
+               onSelect={handleSelectSkillsItem}
+               selctedValues={selectedSkills}
+             />}
+ 
+              <Profileinput 
+               label={selectedAddress.length > 0 ? handleDisplayAddress(selectedAddress, abujaTownsAndCities) : "Address in Abuja"}
+               isSelectModal
+               onSelect={handleSelectAddress}
+               listToSelect={abujaTownsAndCities}
+               loading={loading}
+               multiple
+               selctedValues={selectedAddress}
+             />
+ 
+              {isVendor && <Profileinput 
+               label="Bio"
+              />}
+
+              {isVendor && <Profileinput 
                label="Add Images of Workdone"
                multiline
                row={3}
                height={100}
-             />
+             />}
            </View>}
  
            {isEditProfile && <View style={{marginTop: 30, display: "flex", alignItems: "center",}}>
@@ -193,8 +309,9 @@ const ProfileScreen = () => {
          <SuccesssModal 
            open={openModal}
            onCancel={() => {
-            setIsEditProfile(false);
+            setOpenNotify(false);
             setOpenModal(false);
+            setIsEditProfile(false);
           }}
            title={modalTitle}
          />
@@ -220,6 +337,13 @@ const ProfileScreen = () => {
           onCancel={() => setShowDrawUp(false)}
         />
        )}
+
+    <ImageViewing
+      images={[{ uri: image }]}
+      imageIndex={0}
+      visible={visible}
+      onRequestClose={() => setVisible(false)}
+    />
      </>
     
    )
@@ -252,13 +376,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "#fff",
-    marginTop: -20,
+    marginTop: -15,
     borderRadius:100,
     height: 40,
     width: 40,
     position: "absolute",
-    bottom: 0,
-    right: 160
+    bottom: -10,
+    right: 155
    },
    inputView:{
     flex:1,

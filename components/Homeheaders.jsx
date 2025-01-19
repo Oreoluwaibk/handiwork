@@ -9,14 +9,15 @@ const Homeheaders = ({
     title, 
     showBackBtn, 
     showNotifciationIcon,
-    showIcon
+    showIcon,
+    onPress 
 }) => {
     const router = useRouter();
   return (
     <View style={styles.container}>
         <View style={styles.top}>
             {showBackBtn && (
-                <BackButton size={14}  />
+                <BackButton size={14} onPress={() => router.back()}  />
             )}
             <Text style={styles.text}>{title}</Text>
         </View>
@@ -54,6 +55,6 @@ const styles = StyleSheet.create({
     text: {
         fontSize: 18,
         fontWeight: "700",
-        width: "60%"
+        width: "80%"
     },
 })

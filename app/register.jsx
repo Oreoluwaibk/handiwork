@@ -1,9 +1,10 @@
-import { View, Text, StyleSheet, SafeAreaView, Image } from 'react-native'
+import { View, StyleSheet, SafeAreaView, Image } from 'react-native'
 import React, { useState } from 'react'
 import { Colors } from '@/constants/Colors';
 import Authinput from '@/components/Authinput';
 import Button from '@/components/Button';
 import { Link } from 'expo-router';
+import { Text } from '@/components/CustomText';
 
 const register = () => {
     const [ firstname, setFirstname ] = useState("");

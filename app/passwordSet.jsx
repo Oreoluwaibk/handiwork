@@ -1,8 +1,9 @@
-import { View, Text, StyleSheet, Image } from 'react-native'
+import { View, StyleSheet, Image } from 'react-native'
 import React from 'react'
 import { useRouter } from 'expo-router';
 import Button from '@/components/Button';
 import { AntDesign } from '@expo/vector-icons';
+import { Text } from '@/components/CustomText';
 
 const passwordSet = () => {
     const router = useRouter();

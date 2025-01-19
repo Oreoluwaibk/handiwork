@@ -1,9 +1,10 @@
-import { View, Text, StyleSheet } from 'react-native'
+import { View, StyleSheet } from 'react-native'
 import React, { useState } from 'react'
 import { useRouter } from 'expo-router';
 import BackButton from '@/components/BackButton';
 import Authinput from '@/components/Authinput';
 import Button from '@/components/Button';
+import { Text } from '@/components/CustomText';
 
 const resetPassword = () => {
     const router = useRouter();

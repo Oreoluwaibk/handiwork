@@ -1,10 +1,11 @@
-import { View, Text, SafeAreaView, StyleSheet, Image } from 'react-native'
+import { View, SafeAreaView, StyleSheet, Image } from 'react-native'
 import React, { useContext, useState } from 'react'
 import { Colors } from '@/constants/Colors';
 import { Link, useRouter } from 'expo-router';
 import Authinput from '@/components/Authinput';
 import Button from '@/components/Button';
 import { AuthContext } from '@/uils/context/authContext';
+import { Text } from '@/components/CustomText';
 
 const login = () => {
     const router = useRouter();
