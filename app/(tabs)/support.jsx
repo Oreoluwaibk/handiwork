@@ -5,6 +5,7 @@ import Authinput from '@/components/Authinput';
 import Button from '@/components/Button';
 import { Colors } from '@/constants/Colors';
 import SuccesssModal from '@/components/SuccesssModal';
+import { router } from 'expo-router';
 
 const Tab = () => {
   const [ email, setEmail ] = useState(null);
@@ -54,7 +55,10 @@ const Tab = () => {
       {openModal && (
         <SuccesssModal 
           open={openModal}
-          onCancel={() => setOpenModal(false)}
+          onCancel={() => {
+            setOpenModal(false);
+            router.push("/(tabs)/(home)")
+          }}
           title="Message submitted successfully"
         />
       )}

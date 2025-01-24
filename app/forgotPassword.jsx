@@ -5,6 +5,7 @@ import BackButton from '@/components/BackButton';
 import Authinput from '@/components/Authinput';
 import Button from '@/components/Button';
 import { Text } from '@/components/CustomText';
+import { Colors } from '@/constants/Colors';
 
 const forgotPassword = () => {
     const router = useRouter();
@@ -42,7 +43,10 @@ export default forgotPassword;
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1
+        flex: 1,
+        backgroundColor: Colors.light.background,
+        paddingTop: 40,
+        paddingHorizontal: 20,
     },
     top: {
         display: "flex",
@@ -56,6 +60,10 @@ const styles = StyleSheet.create({
     },
     middle: {
         display: "flex",
-        gap: 30
+        gap: 30,
+        flex: 1,
+        display: "flex",
+        justifyContent: "center",
+        marginTop: -40
     }
 })

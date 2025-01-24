@@ -47,11 +47,11 @@ const register = () => {
                           onChange={setPassword}
                           value={password}
                       />
-                      <View style={{alignItems: "center", flexDirection: "row", justifyContent: "flex-end"}}>
+                      {/* <View style={{alignItems: "center", flexDirection: "row", justifyContent: "flex-end"}}>
                           <Text style={{ color: Colors.light.primary }}>Forgot Password</Text>
-                      </View>
+                      </View> */}
 
-                      <View style={{marginTop: 10}}>
+                      <View style={{marginTop: 30}}>
                           <Button 
                               title="Sign Up"
                           />
@@ -59,16 +59,16 @@ const register = () => {
                   </View>
                   
               </View>
-
-
-          </View>
-          <View style={styles.haveView}>
-              <Text style={styles.haveAccount}>Already have an Account? 
+              <View style={styles.haveView}>
+                <Text style={styles.haveAccount}>Already have an Account? 
                   <Link href="/login" asChild style={{marginLeft: 7}}>
-                      <Text style={{color: Colors.light.primary}}>Log in</Text>
+                    <Text style={{color: Colors.light.primary}}>Log in</Text>
                   </Link>
-              </Text>
+                </Text>
+              </View>
+
           </View>
+        
       </View>
     </SafeAreaView>
   )
@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.light.background,
-    paddingTop: 40,
+    paddingTop: 20,
     paddingHorizontal: 20,
   },
   contain: {
@@ -101,7 +101,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     paddingVertical: 30,
-    width: "100%"
+    width: "100%",
+    marginTop: 80
   },
   title: {
     fontSize: 16,

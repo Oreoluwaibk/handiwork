@@ -11,7 +11,6 @@ import NotificationModal from '@/components/modal/NotificationModal';
 import { useRouter } from 'expo-router';
 import DrawUpModal from '@/components/modal/DrawUpModal';
 import * as ImagePicker from 'expo-image-picker';
-import * as FilePicker from 'expo-document-picker';
 import ImageViewing from 'react-native-image-viewing';
 
 
@@ -95,7 +94,7 @@ const abujaTownsAndCities = [
 ];
 
 
-const ProfileScreen = () => {
+const Profile = () => {
   const router = useRouter();
     const [ openModal, setOpenModal ] = useState(false);
     const [ isVendor, setIsVendor ] = useState(false);
@@ -156,26 +155,6 @@ const ProfileScreen = () => {
       }
      
     }
-
-    const handleFilePick = async () => {
-      try {
-        let result = await FilePicker.getDocumentAsync();
-        // if(!result) return;
-        // const info = result.assets[0];
-        // const mimeType = info.mimeType.split("/")[1];
-        // const splitName = info.fileName.split(".");
-        // const file = {
-        //   file: info.base64,
-        //   filename: splitName.length > 1 ? info.fileName : `${info.fileName}.${mimeType}`
-        // }
-        // setImageFile(file);
-        
-        // setImage(info.uri);
-      } catch (error) {
-        console.log("error", error);
-      }
-     
-    }
    return (
      <>
        <SafeAreaView style={{flex:1,backgroundColor:"#fff"}}>
@@ -191,11 +170,7 @@ const ProfileScreen = () => {
  
         
          <ScrollView style={{flex:1,backgroundColor:"#fff"}} showsVerticalScrollIndicator={false}>
-       {isEditProfile &&  <View style={{display: "flex", flexDirection: "row", justifyContent: "flex-end", paddingHorizontal: 15}}>
-           <Pressable onPress={() => setIsVendor(!isVendor)}>
-             <Text style={styles.text}>{!isVendor ? "Become a Vendor" : "Switch to User"}</Text>
-           </Pressable>
-         </View>}
+     
          <View style={styles.contain}>
            <View style={{display: "flex", alignItems: "center", marginTop: 20, position:"relative"}}>
             <Pressable onPress={() => image && setVisible(true)}>
@@ -214,158 +189,51 @@ const ProfileScreen = () => {
            </View>
            <View style={{alignItems: "center"}}>
                <Text style={{color:"#000", fontSize:14, fontWeight: "500"}}>Akhigbe Imoukhuede</Text>
-               {!isEditProfile && <Text style={{color: Colors.light.primary, fontSize:14}}>{isVendor && selectedSkills.length > 0 ? handleDisplaySkills(selectedSkills, skills) : "Imoukhuedeakhigbe@gmail.com"}</Text>}
+               <Text style={{color: Colors.light.primary, fontSize:14}}>{"Barber"}</Text>
              </View>
 
-             {!isVendor &&!isEditProfile && <View style={{marginTop: 30, display: "flex", alignItems: "center",}}>
+            <View style={{marginTop: 30, display: "flex", alignItems: "center",}}>
              <Button 
                title="Hire Vendor"
-               onPress={() => router.navigate("/(tabs)/(home)/vendorNearby")}
+               onPress={() => setShowDrawUp(true)}
              />
-           </View>}
+           </View>
 
-           {/* {!isVendor && !isEditProfile && (
             <View style={{display: "flex", flexDirection: "row", gap: 10, justifyContent:"center", marginTop: 10}}>
               <ActionIcons 
                 icon={<Ionicons name="chatbubble-outline" color={Colors.light.primary} size={20} />}
                 title="Chat"
-                onPress={() => router.push("/Chat")}
+                onPress={() => router.navigate("/Chat")}
               />
               <ActionIcons 
                 icon={<Ionicons name="call-outline" color={Colors.light.primary} size={20} />}
                 title="Call"
-                onPress={() => router.push("/Call")}
+                onPress={() => router.navigate("/Call")}
 
               />
               <ActionIcons 
                 icon={<Image source={require("@/assets/icons/chatr.png")} style={{width: 18, height:18}} alt='Chat' />}
                 title="Review"
-                onPress={() => router.push("/Review")}
+                onPress={() => router.navigate("/Review")}
               />
             </View>
-           )} */}
+           
 
           
-           {isVendor && !isEditProfile && (
+          
             <View style={{...styles.inputView, marginTop: 5}}>
- 
-            <Profileinput 
-              label="Bio"
-              multiline
-              row={3}
-              height={100}
-            />
-
-            {isVendor && (
               <View style={{display: "flex", flexDirection: "row", gap: 10, paddingHorizontal: 20,}}>
-                <Image source={require("@/assets/icons/imgh.png")} width={"auto"} />
-                <Image source={require("@/assets/icons/imgh.png")}  width={"auto"}/>
-                <Image source={require("@/assets/icons/imgh.png")}  width={"auto"}/>
+                <TouchableOpacity onPress={() => setVisible(true)}>
+                    <Image source={require("@/assets/icons/imgh.png")} width={"auto"} />
+                </TouchableOpacity>
+                <TouchableOpacity>
+                    <Image source={require("@/assets/icons/imgh.png")} width={"auto"} />
+                </TouchableOpacity>
+                <TouchableOpacity>
+                    <Image source={require("@/assets/icons/imgh.png")} width={"auto"} />
+                </TouchableOpacity>
               </View>
-            )}
-
- 
-            <Profileinput 
-               label="Edit Account"
-               onClick={() => setIsEditProfile(true)}
-               red
-               isActionBtn
-             />
             </View>
-           )}
-
-           {!isEditProfile && !isVendor && (
-            <View style={styles.inputView}>
-            <Profileinput 
-               label="House 124 Efab Estate, Lokogoma Abuja."
-             />
- 
-            <Profileinput 
-               label="54689765546899"
-             />
- 
-            <Profileinput 
-               label="Apo District"
-             />
- 
-            <Profileinput 
-               label="Edit Account"
-               onClick={() => setIsEditProfile(true)}
-               red
-               isActionBtn
-             />
- 
-            <Profileinput 
-               label="Delete  Account"
-               red
-               isActionBtn
-               onClick={() => setOpenNotify(true)}
-             />
-            </View>
-           )}
- 
-           {isEditProfile && <View style={{paddingVertical: 20,display: "flex", gap:10, marginTop: 20}}>
-             <Profileinput 
-               label="Full Name"
-             />
- 
-            <Profileinput 
-               label="Email"
-             />
- 
-              <Profileinput 
-               label="Phone Number"
-               number
-             />
- 
-              <Profileinput 
-               label="Detailed Address"
-             />
- 
-              <Profileinput 
-               label="NIN Number"
-               number
-             />
-
-              {isVendor && <Profileinput 
-               label={selectedSkills.length > 0 ? handleDisplaySkills(selectedSkills, skills) :"Skills"}
-               isSelectModal
-               listToSelect={skills}
-               loading={loading}
-               multiple
-               onSelect={handleSelectSkillsItem}
-               selctedValues={selectedSkills}
-             />}
- 
-              <Profileinput 
-               label={selectedAddress.length > 0 ? handleDisplayAddress(selectedAddress, abujaTownsAndCities) : "Address in Abuja"}
-               isSelectModal
-               onSelect={handleSelectAddress}
-               listToSelect={abujaTownsAndCities}
-               loading={loading}
-               multiple
-               selctedValues={selectedAddress}
-             />
- 
-              {isVendor && <Profileinput 
-               label="Bio"
-              />}
-
-
-              <TouchableOpacity onPress={handleFilePick}>
-                <View style={styles.input}>
-                  <Text style={{color: Colors.light.description, fontSize: 16}}>Add Images of Workdone</Text>
-                </View>
-              </TouchableOpacity>
-            
-           </View>}
- 
-           {isEditProfile && <View style={{marginTop: 30, display: "flex", alignItems: "center",}}>
-             <Button 
-               title="Save"
-               onPress={() => setOpenModal(true)}
-             />
-           </View>}
          </View>
          </ScrollView>
         </View>
@@ -406,17 +274,20 @@ const ProfileScreen = () => {
        )}
 
     <ImageViewing
-      images={[{ uri: image }]}
+      images={[{ uri: "@/assets/icons/imgh.png"}]}
       imageIndex={0}
       visible={visible}
-      onRequestClose={() => setVisible(false)}
+      onRequestClose={() => {
+        setVisible(false);
+        setImage(null);
+    }}
     />
      </>
     
    )
 }
 
-export default ProfileScreen;
+export default Profile;
 
 const styles = StyleSheet.create({
   container: {
@@ -458,15 +329,5 @@ const styles = StyleSheet.create({
     gap:10, marginTop: 20,
     backgroundColor:"#fff"
     
-   },
-   input: {
-    backgroundColor: "#fff",
-    borderWidth:1,
-    borderColor: "#F5F3F2",
-    height: 56,
-    paddingLeft: 25,
-    fontSize: 16,
-    borderRadius: 5,
-    justifyContent: "center"
-},
+   }
 })

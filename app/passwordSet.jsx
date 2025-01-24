@@ -4,11 +4,12 @@ import { useRouter } from 'expo-router';
 import Button from '@/components/Button';
 import { AntDesign } from '@expo/vector-icons';
 import { Text } from '@/components/CustomText';
+import { Colors } from '@/constants/Colors';
 
 const passwordSet = () => {
     const router = useRouter();
   return (
-    <View>
+    <View style={styles.container}>
        <View style={styles.middle}>
           <Text style={styles.text}>Password set successfully</Text>
           <Image source={require("@/assets/images/suc.png")} />
@@ -30,7 +31,10 @@ export default passwordSet;
 
 const styles = StyleSheet.create({
   container: {
-      flex: 1
+      flex: 1,
+      backgroundColor: Colors.light.background,
+      paddingTop: 40,
+      paddingHorizontal: 20,
   },
   top: {
       display: "flex",
@@ -44,6 +48,10 @@ const styles = StyleSheet.create({
   },
   middle: {
       display: "flex",
-      gap: 30
+      gap: 30,
+      flex: 1,
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center"
   }
 })

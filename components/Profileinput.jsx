@@ -22,7 +22,8 @@ const Profileinput = ({
     onSelect,
     loading,
     multiple,
-    selctedValues
+    selctedValues,
+    editable=true
 }) => {
      const [ showText, setShowText ] = useState(false);
      const [ showModal, setShowModal ] = useState(false);
@@ -40,7 +41,7 @@ const Profileinput = ({
                 multiline={multiline}
                 numberOfLines={Platform.OS === "android" && 6}
                 rows={row}
-                editable={!isSelectModal}
+                editable={!editable || !isSelectModal}
                 keyboardType={number? "numeric" :"default"}
             />}
             {isActionBtn && (

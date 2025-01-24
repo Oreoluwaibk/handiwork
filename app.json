@@ -33,7 +33,8 @@
           "backgroundColor": "#ffffff"
         }
       ],
-      "expo-font"
+      "expo-font",
+      "expo-document-picker"
     ],
     "experiments": {
       "typedRoutes": true
@@ -46,6 +47,12 @@
         "projectId": "d81e3958-2f57-4378-a92d-cc1c9405c54f"
       }
     },
-    "owner": "oreoluwaibk"
+    "owner": "oreoluwaibk",
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/d81e3958-2f57-4378-a92d-cc1c9405c54f"
+    }
   }
 }

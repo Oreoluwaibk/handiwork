@@ -2,12 +2,14 @@ import { View, Text, Modal, StyleSheet, Image } from 'react-native'
 import React from 'react'
 import Button from './Button';
 import { AntDesign } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
 
 const SuccesssModal = ({
     open,
     onCancel,
     title
 }) => {
+  const router = useRouter();
   return (
     <Modal
         open={open}

@@ -14,7 +14,7 @@ export default function DrawUpModal({
         open={open}
         onRequestClose={onCancel}
         transparent={true}
-        presentationStyle="pageSheet"
+        // presentationStyle="fullScreen"
         animationType="slide"
     >
         <View style={styles.container}>

@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { Colors } from '@/constants/Colors';
 import Homeheaders from '@/components/Homeheaders';
 import NotificationCard from '@/components/card/NotificationCard';
+import { router } from 'expo-router';
 
 export default function VendorNearby() {
     const [ allNotifications, setAllNotificatins ] = useState([
@@ -19,13 +20,14 @@ export default function VendorNearby() {
                 />
             </View> 
 
-            <View style={{paddingHorizontal: 10}}>
+            <View style={{}}>
                 <FlatList 
                     data={allNotifications}
                     renderItem={({ item }) => (
                         <View>
                             <NotificationCard 
                                 notification={item} 
+                                onPress={() => router.push("/profile")}
                             />
                         </View>
                     )}
@@ -42,7 +44,8 @@ const styles = StyleSheet.create({
  container: {
   flex: 1,
   backgroundColor: "#f3f3f3",
-  paddingTop: 20
+  paddingTop: 20,
+  paddingHorizontal: 10
  },
  contain: {
   flex: 1,

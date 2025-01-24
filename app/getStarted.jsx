@@ -30,7 +30,7 @@ export default function getStarted() {
         <Carousel
           loop
           width={width * 0.9}
-          height={height *0.1}
+          height={100}
           autoPlay={true}
           data={data}
           vertical={true} 

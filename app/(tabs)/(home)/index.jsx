@@ -1,4 +1,4 @@
-import { Image, StyleSheet, Platform, View, SafeAreaView, ScrollView } from 'react-native';
+import { StyleSheet, View, SafeAreaView, ScrollView } from 'react-native';
 import Homeheaders from '@/components/Homeheaders';
 import { Colors } from '@/constants/Colors';
 import PictureComp from '@/components/PictureComp';
@@ -21,34 +21,71 @@ export default function HomeScreen() {
                 <PictureComp 
                   title="Fashion & Lifestyle" 
                   picture={require("@/assets/images/img1.png")} 
-                  onPress={() => router.navigate({pathname: "/service",  params: {title: "Fashion & Lifestyle"}})}
+                  onPress={() => router.navigate({
+                    pathname: "/service",  
+                    params: {
+                      title: "Fashion & Lifestyle", 
+                      id: 1
+                    }})}
                 />
-                  <View style={{display: "flex", flexDirection: "row", gap: 2}}>
-                    <PictureComp 
-                      title="Skilled Helpers" 
-                      picture={require("@/assets/images/img2.png")} 
-                      width={"90%"} 
-                      onPress={() => router.navigate({pathname: "/service",  params: {title: "Skilled Helpers"}})}
-                    />
+                <View style={{display: "flex", flexDirection: "row", gap: 2}}>
+                  <PictureComp 
+                    title="Skilled Helpers" 
+                    picture={require("@/assets/images/img2.png")} 
+                    width={"90%"} 
+                    onPress={() => router.navigate({pathname: "/service",  params: {title: "Skilled Helpers", id: 2}})}
+                  />
 
-                    <PictureComp 
-                      title="Beauty Services" 
-                      picture={require("@/assets/images/img3.png")} 
-                      width={"90%"}
-                      onPress={() => router.navigate({pathname: "/service",  params: {title: "Beauty Services"}})}
-                    />
-                  </View>
+                  <PictureComp 
+                    title="Beauty Services" 
+                    picture={require("@/assets/images/img3.png")} 
+                    width={"90%"}
+                    onPress={() => router.navigate({pathname: "/service",  params: {title: "Beauty Services", id: 3}})}
+                  />
+                </View>
 
                 <PictureComp 
                   title="Environmental Cleaning" 
                   picture={require("@/assets/images/img4.png")} 
-                  onPress={() => router.navigate({pathname: "/service",  params: {title: "Environmental Cleaning"}})}
+                  onPress={() => router.navigate({pathname: "/service",  params: {title: "Environmental Cleaning", id: 4}})}
                 />
                 <PictureComp 
-                  title="Fashion & Environmental Cleaning" 
+                  title="Maintenance Servies" 
                   picture={require("@/assets/images/img5.png")} 
-                  onPress={() => router.navigate({pathname: "/service",  params: {title: "Fashion & Environmental Cleaning"}})}
+                  onPress={() => router.navigate({pathname: "/service",  params: {title: "Maintenance Servies", id: 8}})}
                 />
+
+                <View style={{display: "flex", flexDirection: "row", gap: 0}}>
+                  <PictureComp 
+                    title="Construction" 
+                    picture={require("@/assets/images/img2.png")} 
+                    width={"90%"} 
+                    onPress={() => router.navigate({pathname: "/service",  params: {title: "Construction", id: 5}})}
+                  />
+
+                  <PictureComp 
+                    title="Catering Services" 
+                    picture={require("@/assets/images/img3.png")} 
+                    width={"90%"}
+                    onPress={() => router.navigate({pathname: "/service",  params: {title: "Catering Services", id: 6}})}
+                  />
+                </View>
+
+                <View style={{display: "flex", flexDirection: "row", gap: -0}}>
+                  <PictureComp 
+                    title="Transport" 
+                    picture={require("@/assets/images/img2.png")} 
+                    width={"90%"} 
+                    onPress={() => router.navigate({pathname: "/service",  params: {title: "Transport Services", id: 7}})}
+                  />
+
+                  <PictureComp 
+                    title="Security Services" 
+                    picture={require("@/assets/images/img3.png")} 
+                    width={"90%"}
+                    onPress={() => router.navigate({pathname: "/service",  params: {title: "Security Services", id: 9}})}
+                  />
+                </View>
             </View>
           </ScrollView>
         </View>
@@ -69,7 +106,8 @@ const styles = StyleSheet.create({
   backgroundColor: Colors.light.background,
   marginTop: 20,
   display: "flex",
-  gap: 20
+  gap: 20,
+  paddingBottom: 20
  },
  header: {
   paddingVertical: 20,

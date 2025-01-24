@@ -1,10 +1,11 @@
-import { View, StyleSheet } from 'react-native'
+import { View, StyleSheet, SafeAreaView } from 'react-native'
 import React, { useState } from 'react'
 import { useRouter } from 'expo-router';
 import BackButton from '@/components/BackButton';
 import Authinput from '@/components/Authinput';
 import Button from '@/components/Button';
 import { Text } from '@/components/CustomText';
+import { Colors } from '@/constants/Colors';
 
 const resetPassword = () => {
     const router = useRouter();
@@ -17,7 +18,7 @@ const resetPassword = () => {
        <View style={styles.top}>
            <BackButton onPress={() => router.back()} />
 
-           <Text style={styles.text}>Forgot Password</Text>
+           <Text style={styles.text}>Reset Password</Text>
        </View>
        <View style={styles.middle}>
            <Authinput 
@@ -53,7 +54,10 @@ export default resetPassword;
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1
+        flex: 1,
+        backgroundColor: Colors.light.background,
+        paddingTop: 40,
+        paddingHorizontal: 20,
     },
     top: {
         display: "flex",
@@ -67,6 +71,10 @@ const styles = StyleSheet.create({
     },
     middle: {
         display: "flex",
-        gap: 30
+        gap: 30,
+        flex: 1,
+        display: "flex",
+        justifyContent: "center",
+        marginTop: -40
     }
 })

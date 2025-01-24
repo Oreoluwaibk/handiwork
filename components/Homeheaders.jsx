@@ -1,8 +1,10 @@
-import { View, Text, Pressable, StyleSheet, Dimensions } from 'react-native'
+import { View, Pressable, StyleSheet, Dimensions } from 'react-native'
 import React from 'react'
 import BackButton from './BackButton'
 import { Ionicons } from '@expo/vector-icons'
 import { useRouter } from 'expo-router';
+import { Text } from './CustomText';
+
 
 const { width } = Dimensions.get("screen");
 const Homeheaders = ({ 

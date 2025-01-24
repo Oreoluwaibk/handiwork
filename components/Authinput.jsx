@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     label: {},
     input: {
         backgroundColor: "#F5F5F5",
-        height: 56,
+        // height: 56,
         paddingLeft: 20,
         fontSize: 16,
         borderRadius: 5

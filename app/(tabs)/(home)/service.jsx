@@ -8,21 +8,74 @@ import CheckboxComp from '@/components/inputs/CheckboxComp';
 
 export default function Services() {
     const router = useRouter();
-    const { title } = useLocalSearchParams();
+    const { title, id } = useLocalSearchParams();
     const [ selectedSkill, setSelectedSkills ] = useState(null);
     
-    const skills = [
-        {id:1, title: "Event Planners"},
-        {id:2, title: "Tailors"},
-        {id:3, title: "Shoe Makers"},
-        {id:4, title: "Fabric Sellers"},
-        {id:5, title: "Photographer"},
-        {id:6, title: "Errand Personal"},
-        {id:7, title: "Event Planners"},
-        {id:8, title: "Event Planners"},
-        {id:9, title: "Event Planners"},
-        {id:10, title: "Event Planners"},
-    ];
+    const skills = ["Event Planners", "Tailors", "Shoe Makers", "Fabric Sellers", "Photographer", "Errand Personel", "Proposal Writing"]
+    const skill2 = ["Electricians", "Plumbers", "Welders", "Carpenters", "Masons", "Mechanics", "HVAC Technicians", "Metal Fabricators", "Laundry personnel","Painters"]
+    const skill3 = ["Barbers", "Hair Stylist", "Make-up Artists", "Nail Technicians", "Estheticians", "Massage Therapist", "Tattoo Artists", 
+"Make-up Kit Sellers"]
+const skill4 = [
+  "Daily House Cleaners",
+  "Laundry Personnel",
+  "Janitors",
+  "Commercial Cleaners",
+  "Gardening Services",
+  "Pest Control Technicians",
+  "Window Cleaners",
+  "Waste Management Workers"
+]
+
+const skill5 = [
+  "Construction Workers",
+  "Site Supervisor",
+  "Heavy Equipment Operators",
+  "Roofers",
+  "Interior Designers",
+  "Landscapers"
+]
+
+const skill6 = [
+  "Chefs",
+  "Caterers",
+  "Bakers",
+  "Food Delivery Worker",
+  "Bartenders"
+]
+
+const skill7 = [
+  "Truck Drivers",
+"Delivery personnel",
+  "Daily Car Drivers",
+ "ForkLift Operators",
+ "Warehouse Workers"
+]
+
+const skill8 = [
+  "Painters",
+  "Appliance Repair Technicians",
+  "General Handyman",
+  "Daily House Cleaners"
+]
+
+const skill9 = [
+  "Security Guards",
+"Body Guards",
+"Private Investigator"
+]
+
+const allSkills = [
+  skills,
+  skill2,
+  skill3,
+  skill4,
+  skill5,
+  skill6,
+  skill7,
+  skill8,
+  skill9
+]
+
 
     const handleSelectSkill = (value) => {
         if(selectedSkill === value) return setSelectedSkills(null);
@@ -41,22 +94,22 @@ export default function Services() {
           {/* <ScrollView style={{backgroundColor: "#fff", flex: 1}}> */}
            <View style={styles.contain}>
                 <FlatList 
-                    data={skills}
+                    data={allSkills[id-1]}
                     renderItem={({ item }) => {
                         return (
                             <View style={{marginVertical: 5}}>
-                                <Pressable onPress={() => handleSelectSkill(item.id)}>
+                                <Pressable onPress={() => handleSelectSkill(item)}>
                                     <CheckboxComp 
-                                        title={item.title}
-                                        value={selectedSkill === item.id}
-                                        onValueChange={() => setSelectedSkills(item.id)}
+                                      title={item}
+                                      value={selectedSkill === item}
+                                      onValueChange={() => setSelectedSkills(item)}
                                     />
-                                </Pressable>
+                                </Pressable> 
                                
                             </View>
                         )
                     }}
-                    keyExtractor={(item => item.id)}
+                    keyExtractor={(item => item)}
                 />
            </View>
         
