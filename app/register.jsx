@@ -1,16 +1,29 @@
 import { View, StyleSheet, SafeAreaView, Image } from 'react-native'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Colors } from '@/constants/Colors';
 import Authinput from '@/components/Authinput';
 import Button from '@/components/Button';
-import { Link } from 'expo-router';
+import { Link, router } from 'expo-router';
 import { Text } from '@/components/CustomText';
+import { AuthContext } from '@/uils/context/authContext';
 
 const register = () => {
+   const { logUserIn } = useContext(AuthContext); 
     const [ firstname, setFirstname ] = useState("");
     const [ lastname, setLastname ] = useState("");
     const [ email, setEmail ] = useState("");
     const [ password, setPassword ] = useState("");
+
+    const handleSunbmitForm = () => {
+      // const { validateFields } = form;
+      // validateFields()
+      // .then(values => {
+      //   console.log("value", values);
+      
+        logUserIn({email: email, password})
+        router.push("/(tabs)")
+      // })
+    }
 
   return (
     <SafeAreaView style={{flex: 1}}>
@@ -54,6 +67,7 @@ const register = () => {
                       <View style={{marginTop: 30}}>
                           <Button 
                               title="Sign Up"
+                              onPress={handleSunbmitForm}
                           />
                       </View>
                   </View>
