@@ -10,6 +10,7 @@ export default function ProfileLayout() {
       <Stack.Screen name="service" />
       <Stack.Screen name="vendorNearby" />
       <Stack.Screen name="profile" />
+      <Stack.Screen name="Notification" />
       {/* <Stack.Screen name="details" /> */}
     </Stack>
   );
