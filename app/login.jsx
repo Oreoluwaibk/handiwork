@@ -146,7 +146,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     paddingVertical: 30,
     width: "100%",
-    marginTop:180
+    marginTop:120
     // position: "absolute",
     // bottom: 20
   },

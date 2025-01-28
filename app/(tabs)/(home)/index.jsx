@@ -1,4 +1,4 @@
-import { StyleSheet, View, SafeAreaView, ScrollView } from 'react-native';
+import { StyleSheet, View, SafeAreaView, ScrollView, Image } from 'react-native';
 import Homeheaders from '@/components/Homeheaders';
 import { Colors } from '@/constants/Colors';
 import PictureComp from '@/components/PictureComp';
@@ -11,9 +11,10 @@ export default function HomeScreen() {
         <View style={styles.container}>
           <View style={styles.header}>
             <Homeheaders 
-              title="Find Vendor Around Your Location."
+              // title="Find Vendor Around Your Location."
+              title={<Image source={require("@/assets/images/altlogo.png")} alt='logo' />}
               showNotifciationIcon
-              showBackBtn
+              // showBackBtn
             />
           </View>
           <ScrollView style={{backgroundColor: "#fff", flex: 1}}>
@@ -107,7 +108,8 @@ const styles = StyleSheet.create({
   marginTop: 20,
   display: "flex",
   gap: 20,
-  paddingBottom: 20
+  paddingBottom: 20,
+  paddingTop: 10
  },
  header: {
   paddingVertical: 20,

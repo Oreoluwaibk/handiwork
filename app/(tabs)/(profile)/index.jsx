@@ -191,9 +191,12 @@ const ProfileScreen = () => {
  
         
          <ScrollView style={{flex:1,backgroundColor:"#fff"}} showsVerticalScrollIndicator={false}>
-       {isEditProfile &&  <View style={{display: "flex", flexDirection: "row", justifyContent: "flex-end", paddingHorizontal: 15}}>
-           <Pressable onPress={() => setIsVendor(!isVendor)}>
-             <Text style={styles.text}>{!isVendor ? "Become a Vendor" : "Switch to User"}</Text>
+       {!isEditProfile &&  <View style={{display: "flex", flexDirection: "row", justifyContent: "flex-end", paddingHorizontal: 15}}>
+           <Pressable onPress={() => {
+              if(!isVendor) setIsEditProfile(true);
+              setIsVendor(!isVendor)
+            }}>
+             <Text style={styles.text}>{!isVendor ? "Become a Vendor" : "Switch to User profile"}</Text>
            </Pressable>
          </View>}
          <View style={styles.contain}>
@@ -214,12 +217,14 @@ const ProfileScreen = () => {
            </View>
            <View style={{alignItems: "center"}}>
                <Text style={{color:"#000", fontSize:14, fontWeight: "500"}}>Akhigbe Imoukhuede</Text>
-               {!isEditProfile && <Text style={{color: Colors.light.primary, fontSize:14}}>{isVendor && selectedSkills.length > 0 ? handleDisplaySkills(selectedSkills, skills) : "Imoukhuedeakhigbe@gmail.com"}</Text>}
+               {!isEditProfile && <Text style={{color: Colors.light.primary, fontSize:14}}>{"Imoukhuedeakhigbe@gmail.com"}</Text>}
+               {!isEditProfile && <Text style={{color: Colors.light.primary, fontSize:14}}>{isVendor && selectedSkills.length > 0 && handleDisplaySkills(selectedSkills, skills)}</Text>}
+              
              </View>
 
              {!isVendor &&!isEditProfile && <View style={{marginTop: 30, display: "flex", alignItems: "center",}}>
              <Button 
-               title="Hire Vendor"
+               title="Hire A Vendor"
                onPress={() => router.navigate("/(tabs)/(home)/vendorNearby")}
              />
            </View>}
