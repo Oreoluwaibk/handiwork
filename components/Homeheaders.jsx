@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
         // width: "50%"
     },
     text: {
-        fontSize: 18,
+        fontSize: 20,
         fontWeight: "700",
         width: "80%"
     },
