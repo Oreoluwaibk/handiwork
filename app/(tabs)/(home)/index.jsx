@@ -1,4 +1,4 @@
-import { StyleSheet, View, SafeAreaView, ScrollView, Image } from 'react-native';
+import { StyleSheet, View, SafeAreaView, ScrollView, Image, Text } from 'react-native';
 import Homeheaders from '@/components/Homeheaders';
 import { Colors } from '@/constants/Colors';
 import PictureComp from '@/components/PictureComp';
@@ -12,7 +12,12 @@ export default function HomeScreen() {
           <View style={styles.header}>
             <Homeheaders 
               // title="Find Vendor Around Your Location."
-              title={<Image source={require("@/assets/images/altlogo.png")} alt='logo' />}
+              title={(
+                <View style={{gap: 0, alignItems: "flex-start"}}>
+                  <Image source={require("@/assets/images/altlogo.png")} alt='logo' style={{marginLeft: -10}} />
+                  <Text style={styles.text}>Find Vendor Around Your Location.</Text>
+                </View>
+              )}
               showNotifciationIcon
               // showBackBtn
             />
@@ -102,6 +107,11 @@ const styles = StyleSheet.create({
   backgroundColor: Colors.light.background,
   paddingTop: 20
  },
+ text: {
+  fontSize: 22,
+  fontWeight: "700",
+  width: "100%"
+},
  contain: {
   flex: 1,
   backgroundColor: Colors.light.background,

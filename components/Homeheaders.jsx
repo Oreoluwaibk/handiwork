@@ -27,7 +27,7 @@ const Homeheaders = ({
 
       {showNotifciationIcon && (
         <Pressable  onPress={() => router.push("/Notification")}>
-            <Ionicons name="notifications-outline" size={20} color="black" />
+            <Ionicons name="notifications-outline" size={24} color="black" />
         </Pressable>
       )}
 
