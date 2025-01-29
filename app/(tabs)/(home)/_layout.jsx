@@ -11,6 +11,8 @@ export default function ProfileLayout() {
       <Stack.Screen name="vendorNearby" />
       <Stack.Screen name="profile" />
       <Stack.Screen name="Notification" />
+      <Stack.Screen name="Call" />
+      <Stack.Screen name="Chat" />
       {/* <Stack.Screen name="details" /> */}
     </Stack>
   );
