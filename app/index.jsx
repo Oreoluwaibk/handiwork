@@ -8,11 +8,13 @@ const Introduction = () => {
   const router = useRouter();
   const { isLoggedIn } = useContext(AuthContext)
   useEffect(() => {
+    console.log("is ", isLoggedIn);
+    
     setTimeout(() => {
       if(isLoggedIn) return router.push("/(tabs)")
       router.push("/getStarted");
     }, 2000);
-  }, [router]);
+  }, [router, isLoggedIn]);
 
   return (
     <View style={styles.container}>

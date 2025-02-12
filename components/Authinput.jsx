@@ -3,7 +3,16 @@ import React, { useState } from 'react'
 import { Colors } from '@/constants/Colors';
 import { Feather } from "@expo/vector-icons"
 
-const Authinput = ({ label, password, showLabel, onChange, value, multiline }) => {
+const Authinput = ({ 
+    label, 
+    password, 
+    showLabel, 
+    onChange, 
+    value, 
+    multiline,
+    error,
+    editable=true
+}) => {
     const [ showText, setShowText ] = useState(false);
   return (
     <View>
@@ -18,12 +27,14 @@ const Authinput = ({ label, password, showLabel, onChange, value, multiline }) =
             multiline={multiline}
             numberOfLines={Platform.OS === "android" && 6}
             rows={7}
+            editable={editable}
         />
         {password && (
             <Pressable style={styles.passwordToggle} onPress={() => setShowText(!showText)}>
                 <Feather name={!showText ? "eye-off" :"eye"} size={14} color={Colors.light.description}/>
             </Pressable>
         )}
+        {error && <Text style={{color: Colors.light.primary}}>{error}</Text>}
     </View>
   )
 }

@@ -1,125 +1,100 @@
 import { View, Text, SafeAreaView, ScrollView, StyleSheet, FlatList, Pressable } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Homeheaders from '@/components/Homeheaders'
 import { Colors } from '@/constants/Colors';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import Button from '@/components/Button';
 import CheckboxComp from '@/components/inputs/CheckboxComp';
+import NotificationModal from '@/components/modal/NotificationModal';
+import { getOneCategories } from '@/api/category';
+import { useSearchParams } from 'expo-router/build/hooks';
 
 export default function Services() {
     const router = useRouter();
-    const { title, id } = useLocalSearchParams();
+    const { category } = useLocalSearchParams();
     const [ selectedSkill, setSelectedSkills ] = useState(null);
+    const [ loading, setLoading ] = useState(false);
+    const [ openNotify, setOpenNotify ] = useState(false);
+    const [ notification, setNotification ] = useState(null);
+    const [ skills, setSkills ] = useState([]);
     
-    const skills = ["Event Planners", "Tailors", "Shoe Makers", "Fabric Sellers", "Photographer", "Errand Personel", "Proposal Writing"]
-    const skill2 = ["Electricians", "Plumbers", "Welders", "Carpenters", "Masons", "Mechanics", "HVAC Technicians", "Metal Fabricators", "Laundry personnel","Painters"]
-    const skill3 = ["Barbers", "Hair Stylist", "Make-up Artists", "Nail Technicians", "Estheticians", "Massage Therapist", "Tattoo Artists", 
-"Make-up Kit Sellers"]
-const skill4 = [
-  "Daily House Cleaners",
-  "Laundry Personnel",
-  "Janitors",
-  "Commercial Cleaners",
-  "Gardening Services",
-  "Pest Control Technicians",
-  "Window Cleaners",
-  "Waste Management Workers"
-]
+    useEffect(() => {
+      console.log("cc", category, category.title);
+      
+      // if(category) handleGetCategory(category._id)
+    }, [category]);
 
-const skill5 = [
-  "Construction Workers",
-  "Site Supervisor",
-  "Heavy Equipment Operators",
-  "Roofers",
-  "Interior Designers",
-  "Landscapers"
-]
-
-const skill6 = [
-  "Chefs",
-  "Caterers",
-  "Bakers",
-  "Food Delivery Worker",
-  "Bartenders"
-]
-
-const skill7 = [
-  "Truck Drivers",
-"Delivery personnel",
-  "Daily Car Drivers",
- "ForkLift Operators",
- "Warehouse Workers"
-]
-
-const skill8 = [
-  "Painters",
-  "Appliance Repair Technicians",
-  "General Handyman",
-  "Daily House Cleaners"
-]
-
-const skill9 = [
-  "Security Guards",
-"Body Guards",
-"Private Investigator"
-]
-
-const allSkills = [
-  skills,
-  skill2,
-  skill3,
-  skill4,
-  skill5,
-  skill6,
-  skill7,
-  skill8,
-  skill9
-]
+    const handleGetCategory = (id) => {
+      setLoading(true)
+      getOneCategories(id)
+      .then(res => {
+        if(res.status === 200) {
+          setLoading(false);
+          console.log("res", res.data);
+          
+        }
+      })
+      .catch(err => {
+        setLoading(false);
+        setNotification({
+          title: "Unable to get category",
+          description: err?.response?.data?.message || `${err.message}`
+        });
+        setOpenNotify(true);
+      })
+    }
 
 
     const handleSelectSkill = (value) => {
-        if(selectedSkill === value) return setSelectedSkills(null);
-        setSelectedSkills(value);
+      if(selectedSkill === value) return setSelectedSkills(null);
+      setSelectedSkills(value);
     }
   return (
     <SafeAreaView style={{flex:1}}>
         <View style={styles.container}>
           <View style={styles.header}>
             <Homeheaders 
-              title={title}
+              title={category && category.title}
               showNotifciationIcon
               showBackBtn
             />
           </View>
-          {/* <ScrollView style={{backgroundColor: "#fff", flex: 1}}> */}
            <View style={styles.contain}>
-                <FlatList 
-                    data={allSkills[id-1]}
-                    renderItem={({ item }) => {
-                        return (
-                            <View style={{marginVertical: 5}}>
-                                <Pressable onPress={() => handleSelectSkill(item)}>
-                                    <CheckboxComp 
-                                      title={item}
-                                      value={selectedSkill === item}
-                                      onValueChange={() => setSelectedSkills(item)}
-                                    />
-                                </Pressable> 
-                               
-                            </View>
-                        )
-                    }}
-                    keyExtractor={(item => item)}
-                />
+              <FlatList 
+                data={skills}
+                renderItem={({ item }) => {
+                  return (
+                    <View style={{marginVertical: 5}}>
+                      <Pressable onPress={() => handleSelectSkill(item)}>
+                        <CheckboxComp 
+                          title={item}
+                          value={selectedSkill === item}
+                          onValueChange={() => setSelectedSkills(item)}
+                        />
+                      </Pressable>
+                    </View>
+                  )
+                }}
+                keyExtractor={(item => item)}
+              />
            </View>
         
             <View style={{paddingBottom: 200, paddingHorizontal: 10}}>
-                <Button title="Search" onPress={() => router.navigate("/vendorNearby")} />
+              <Button title="Search" onPress={() => router.navigate("/vendorNearby")} />
             </View>
-           
-          {/* </ScrollView> */}
         </View>
-     
+     {openNotify && (
+      <NotificationModal 
+        open={openNotify}
+        onCancel={() => setOpenNotify(false)}
+        title={notification && notification.title}
+        // action
+        desription={notification && notification.description}
+        onOk={() => {
+          setOpenModal(false);
+        }}
+      />
+      )}
     </SafeAreaView>
   )
 }

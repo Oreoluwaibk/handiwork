@@ -6,6 +6,7 @@ import Authinput from '@/components/Authinput';
 import Button from '@/components/Button';
 import { AuthContext } from '@/uils/context/authContext';
 import { Text } from '@/components/CustomText';
+import createErrorMessage from "@/uils/errorMessage"
 import {
   Form,
   Input,
@@ -15,6 +16,8 @@ import {
   Flex as Row,
   Switch,
 } from '@ant-design/react-native'
+import { loginUser } from '@/api';
+import NotificationModal from '@/components/modal/NotificationModal';
 
 const { width } = Dimensions.get("screen");
 const FormItem = Form.Item;
@@ -23,22 +26,46 @@ const login = () => {
     const { logUserIn } = useContext(AuthContext); 
     const [ email, setEmail ] = useState("");
     const [ password, setPassword ] = useState("");
+    const [ loading, setLoading ] = useState(false);
     const textRef = useRef();
+    const [ openNotify, setOpenNotify ] = useState(false);
+    const [ notification, setNotification ] = useState(null);
+    const [ passwordError, setPasswordError ] = useState("");
+    const [ emailError, setEmailError ] = useState("")
     // const [form] = Form.useForm();
 
     const handleSunbmitForm = () => {
-      // const { validateFields } = form;
-      // validateFields()
-      // .then(values => {
-      //   console.log("value", values);
-      
-        logUserIn({email: email, password})
-        router.push("/(tabs)")
-      // })
+      let check = true;
+      check = validateField(email, setEmailError);
+      if(!check) return;
+      check = validateField(passwordError, setPasswordError);
+      if(!check) return;
+
+      setLoading(true);
+      loginUser({email: email, password})
+      .then(res => {
+        if(res.status === 200) {
+          logUserIn(res.data);
+          setLoading(false);
+          router.push("/(tabs)")
+        }
+      })
+      .catch(err => {
+        setLoading(false);
+        setNotification({
+          title: "Unable to login",
+          description: err?.response?.data?.message || `${err.message}`
+        });
+        setOpenNotify(true);
+      })
+      // logUserIn({email: email, password})
+      // router.push("/(tabs)")
+    // })
     }
     
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: Colors.light.background,}}>
+    <>
+     <SafeAreaView style={{flex: 1, backgroundColor: Colors.light.background,}}>
       <View style={styles.container}>
         <View style={styles.contain}>
               <View style={{display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center"}}>
@@ -92,6 +119,7 @@ const login = () => {
                           <Button 
                             title="Login"
                             onPress={handleSunbmitForm}
+                            loading={loading}
                           />
                       </View>
                   </View>
@@ -106,7 +134,23 @@ const login = () => {
             </View>
         </View>
       </View>
+
+      
     </SafeAreaView>
+    {openNotify && (
+        <NotificationModal 
+          open={openNotify}
+          onCancel={() => setOpenNotify(false)}
+          title={notification && notification.title}
+          // action
+          desription={notification && notification.description}
+          onOk={() => {
+            setOpenModal(false);
+          }}
+        />
+      )}
+    </>
+   
   )
 }
 

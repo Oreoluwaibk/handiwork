@@ -28,14 +28,13 @@ export default function NotificationModal({
               <Text style={styles.content}>{desription}</Text>
 
               {!action && <View style={styles.btnView}>
-                  <Button style={styles.btn} onPress={onCancel}>Close</Button>
+                  <Button style={styles.btn} otherWidth={"50%"} onPress={onCancel} title="close"/>
               </View>}
 
               {action &&(
                 <View style={styles.btnView2}>
                 <Button otherWidth={"50%"} onPress={onOk} loading={loading} title={okname} textColor='#000' color='#EDECEC'>{okname}</Button>
                   <Button otherWidth={"50%"} onPress={onCancel} color={color} title={cancelname}>{cancelname}</Button>
-                  
               </View>
               )}
           </View>

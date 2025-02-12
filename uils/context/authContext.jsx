@@ -22,17 +22,13 @@ export const AuthProvider = ({children}) => {
     // const navigation = useNavigation();
     const [user, setUser] = useState({
       id: 0,
-      fullname: null,
+      first_name: null,
+      last_name: null,
       email: null,
-      is_kyc_verified: false,
+      is_verified: false,
       email_verified: false,
-      is_active: false,
-      is_staff: false,
       is_superuser: false,
       is_vendor: false,
-      is_vendor_verified: false,
-      date_joined: null,
-      last_login: null
     });
     const [lastActivityTime, setLastActivityTime] = useState(Date.now());
     const [token, setToken] = useState(null);
@@ -65,30 +61,22 @@ export const AuthProvider = ({children}) => {
     }, [isLoggedIn]);
 
     const logUserIn = (data)=>{
-        // console.log("logining data", data);//"Content-Type": "application/x-www-form-urlencoded", Accept: "application/json"
-        // setToken(data.token);
-        // axios.defaults.headers.common['Authorization'] = `Token ${data.token}`;
-        // axios.defaults.headers.common["Access-Control-Allow-Origin"] = "*"
-        // axios.defaults.headers.common["Access-Control-Allow-Headers"] = "*"
-// : *
-        // axios.defaults.headers.common["Accept"] = "application/json"
-        setUser(data)
-        setIsLoggedIn(true);
+      axios.defaults.headers.common['Authorization'] = data.token;
+      axios.defaults.headers.common["Access-Control-Allow-Origin"] = "*"
+      axios.defaults.headers.common["Access-Control-Allow-Headers"] = "*"
 
-        // setLastActivityTime(Date.now());
+      setUser(data.user)
+      setToken(data.token);
+      setIsLoggedIn(true);
 
-        // storage.save({
-        //     key: 'handiworkUserDetails', // Note: Do not use underscore("_") in key!
-        //     data: data,
-          
-        //     // if expires not specified, the defaultExpires will be applied instead.
-        //     // if set to null, then it will never expire.
-        //     expires: 1000 * 3600,
-        //     // expires: null
-        // });
+      // setLastActivityTime(Date.now());
 
-
-        // localStorage.setItem("commutor_user_datails", JSON.stringify(data));
+      storage.save({
+        key: 'handiworkUserDetails', // Note: Do not use underscore("_") in key!
+        data: data,
+        expires: 1000 * 3600,
+        // expires: null
+      });
     }
 
     const logUserOut = ()=>{
@@ -110,58 +98,40 @@ export const AuthProvider = ({children}) => {
       })
 
       storage.remove({
-          key: 'handiworkUserDetails'
+        key: 'handiworkUserDetails'
       });
     }
 
     useEffect(() => {
-    //   storage
-    //   .load({
-    //       key: 'handiworkUserDetails',
-
-    //       // autoSync (default: true) means if data is not found or has expired,
-    //       // then invoke the corresponding sync method
-    //       autoSync: true,
-
-    //       // syncInBackground (default: true) means if data expired,
-    //       // return the outdated data first while invoking the sync method.
-    //       // If syncInBackground is set to false, and there is expired data,
-    //       // it will wait for the new data and return only after the sync completed.
-    //       // (This, of course, is slower)
-    //       syncInBackground: true,
-
-    //       // you can pass extra params to the sync method
-    //       // see sync example below
-    //       syncParams: {
-    //       extraFetchOptions: {
-    //           // blahblah
-    //       },
-    //       someFlag: true
-    //       }
-    //   })
-    //   .then(data => {
-    //     const isUserPersist = data;
-    //     if(isUserPersist){
-    //         logUserIn(isUserPersist)
-    //     }
-    //   })
-    //   .catch(err => {
-    //     // any exception including data not found
-    //     // goes to catch()
-    //     // console.log(err.message);
-    //     switch (err.name) {
-    //     case 'NotFoundError':
-    //       setToken(null);
-    //       setIsLoggedIn(false);
-    //       // TODO;
-    //       break;
-    //     case 'ExpiredError':
-    //       setToken(null);
-    //       setIsLoggedIn(false);
-    //       // TODO
-    //       break;
-    //     }
-    //   });
+      storage
+      .load({
+        key: 'handiworkUserDetails',
+        autoSync: true,
+        syncInBackground: true,
+        syncParams: {
+          someFlag: true
+        }
+      })
+      .then(data => {
+        const isUserPersist = data;
+        if(isUserPersist){
+          logUserIn(isUserPersist);
+        }
+      })
+      .catch(err => {
+        switch (err.name) {
+        case 'NotFoundError':
+          setToken(null);
+          setIsLoggedIn(false);
+          // TODO;
+          break;
+        case 'ExpiredError':
+          setToken(null);
+          setIsLoggedIn(false);
+          // TODO
+          break;
+        }
+      });
     }, []);
     
     return ( 
