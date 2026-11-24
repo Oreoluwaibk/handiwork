@@ -1,50 +1,26 @@
-# Welcome to your Expo app 👋
+# Handiwork
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Expo mobile app for Handiwork (QuikWrk): people find nearby artisans, request work, chat, and leave reviews. This repository is the client. The API is [handiworkbackend](https://github.com/Oreoluwaibk/handiworkbackend), the marketing site is [quikwrk-website](https://github.com/Oreoluwaibk/quikwrk-website), and the admin desk is [quikwrkadmin](https://github.com/Oreoluwaibk/quikwrkadmin).
 
-## Get started
+## Stack
 
-1. Install dependencies
+Expo, Expo Router, React Native, Redux Toolkit, and Axios. The app calls the API modules in `api/` (`user`, `vendor`, `category`).
 
-   ```bash
-   npm install
-   ```
+## Screens
 
-2. Start the app
+File-based routes under `app/`:
 
-   ```bash
-    npx expo start
-   ```
+- Auth: get started, register, login, forgot password, reset password
+- Home tabs: services, nearby vendors, chat, calls, notifications, profile
+- History, support, and reviews
 
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+## Run locally
 
 ```bash
-npm run reset-project
+npm install
+npx expo start
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+From there, open the project in Expo Go, an Android emulator, or an iOS simulator. `npm run android`, `npm run ios`, and `npm run web` target those platforms directly.
 
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+Point the API client at a running [handiworkbackend](https://github.com/Oreoluwaibk/handiworkbackend) before signing in.
